@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Compras</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <h1>Calculadora de Compras</h1>
+    <label for="valor">Valor da Compra:</label>
+    <input type="number" id="valor" placeholder="Digite o valor" required>
+    <label for="desconto">Desconto (%):</label>
+    <input type="number" id="desconto" placeholder="Digite o desconto" required>
+    <label for="parcelas">Número de Parcelas:</label>
+    <input type="number" id="parcelas" placeholder="Digite o número de parcelas" required>
+    <button onclick="calcularCompra()">Calcular</button>
+
+    <h2 id="resultado"></h2>
+
+    <script>
+        function calcularCompra() {
+            const valor = parseFloat(document.getElementById('valor').value);
+            const desconto = parseFloat(document.getElementById('desconto').value) / 100;
+            const parcelas = parseInt(document.getElementById('parcelas').value);
+
+            if (isNaN(valor) || isNaN(desconto) || isNaN(parcelas) || parcelas <= 0) {
+                document.getElementById('resultado').innerText = 'Por favor, insira valores válidos.';
+                return;
+            }
+
+            const valorComDesconto = valor - (valor * desconto);
+            const valorParcelado = valorComDesconto / parcelas;
+
+            document.getElementById('resultado').innerText = `Valor final com desconto: R$${valorComDesconto.toFixed(2)} (em ${parcelas} parcelas de R$${valorParcelado.toFixed(2)})`;
+        }
+    </script>
+
+</body>
+</html>
